@@ -23,6 +23,20 @@ const defaultConfig = {
 let config = structuredClone(defaultConfig);
 let draggedId = null;
 const $ = (selector, root = document) => root.querySelector(selector);
+const storage = {
+  async get(key) {
+    if (globalThis.chrome?.storage?.local) return chrome.storage.local.get(key);
+    return { [key]: JSON.parse(localStorage.getItem(key) || 'null') };
+  },
+  set(payload) {
+    if (globalThis.chrome?.storage?.local) return chrome.storage.local.set(payload);
+    Object.entries(payload).forEach(([key, value]) => localStorage.setItem(key, JSON.stringify(value)));
+    return Promise.resolve();
+  }
+};
+
+async function loadConfig() {
+  const stored = await storage.get(STORAGE_KEY);
 
 async function loadConfig() {
   const stored = await chrome.storage.local.get(STORAGE_KEY);
@@ -32,6 +46,7 @@ async function loadConfig() {
 }
 
 function saveConfig() {
+  storage.set({ [STORAGE_KEY]: config });
   chrome.storage.local.set({ [STORAGE_KEY]: config });
 }
 
