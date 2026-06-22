@@ -37,6 +37,9 @@ const storage = {
 
 async function loadConfig() {
   const stored = await storage.get(STORAGE_KEY);
+
+async function loadConfig() {
+  const stored = await chrome.storage.local.get(STORAGE_KEY);
   config = { ...structuredClone(defaultConfig), ...(stored[STORAGE_KEY] || {}) };
   config.cards = (config.cards || []).slice(0, MAX_CARDS);
   applyConfig();
@@ -44,6 +47,7 @@ async function loadConfig() {
 
 function saveConfig() {
   storage.set({ [STORAGE_KEY]: config });
+  chrome.storage.local.set({ [STORAGE_KEY]: config });
 }
 
 function applyConfig() {
