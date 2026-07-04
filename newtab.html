@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ultra Custom Newtab Studio</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <style id="user-css"></style>
+    <main id="app" class="app">
+      <section class="hero" aria-label="New tab controls">
+        <div>
+          <p class="eyebrow">Ultra Custom Newtab Studio</p>
+          <h1 id="page-title" contenteditable="true" spellcheck="false">My Command Center</h1>
+          <p id="subtitle" contenteditable="true" spellcheck="false">Pin sites, custom HTML, clocks, notes, and live previews on one start page.</p>
+        </div>
+        <div class="hero-actions">
+          <button id="add-site" class="primary">Add site</button>
+          <button id="add-widget">Add widget</button>
+          <button id="copy-page-url">Copy page URL</button>
+          <button id="open-settings">Settings</button>
+        </div>
+      </section>
+
+      <section class="toolbar" aria-label="Layout toolbar">
+        <label>Global scale <input id="global-scale" type="range" min="60" max="160" value="100" /></label>
+        <label>Columns <input id="columns" type="range" min="1" max="12" value="4" /></label>
+        <label><input id="edit-mode" type="checkbox" checked /> Editor mode</label>
+        <label><input id="preload-sites" type="checkbox" /> Preload sites in background</label>
+      </section>
+
+      <section id="grid" class="grid" aria-label="Custom new tab items"></section>
+    </main>
+
+    <dialog id="settings-dialog">
+      <form method="dialog" class="settings-panel">
+        <header>
+          <h2>Studio settings</h2>
+          <button value="cancel" aria-label="Close settings">×</button>
+        </header>
+        <label>Background
+          <input id="background" placeholder="CSS color, gradient, or image URL" />
+        </label>
+        <label>Accent color
+          <input id="accent" type="color" />
+        </label>
+        <label>Text color
+          <input id="text-color" type="color" />
+        </label>
+        <label>Custom CSS
+          <textarea id="custom-css" rows="10" placeholder=".card { border-radius: 32px; } ::-webkit-scrollbar { width: 14px; }"></textarea>
+        </label>
+        <div class="settings-actions">
+          <button id="export-config" type="button">Export JSON</button>
+          <label class="file-button">Import JSON<input id="import-config" type="file" accept="application/json" /></label>
+          <button id="reset-config" type="button" class="danger">Reset</button>
+          <button value="default" class="primary">Done</button>
+        </div>
+      </form>
+    </dialog>
+
+    <template id="card-template">
+      <article class="card" draggable="true">
+        <div class="card-top">
+          <input class="title-input" aria-label="Title" />
+          <select class="type-select" aria-label="Card type">
+            <option value="site">Site</option>
+            <option value="html">HTML</option>
+            <option value="note">Text</option>
+            <option value="clock-digital">Digital clock</option>
+            <option value="clock-analog">Classic clock</option>
+          </select>
+          <button class="delete-card" aria-label="Delete card">×</button>
+        </div>
+        <div class="editor-row site-controls">
+          <input class="url-input" placeholder="https://example.com" aria-label="Site URL" />
+          <button class="open-site" type="button">Open</button>
+        </div>
+        <div class="editor-row size-controls">
+          <label>W <input class="width-input" type="number" min="1" max="12" /></label>
+          <label>H <input class="height-input" type="number" min="1" max="8" /></label>
+          <label>Scale <input class="scale-input" type="range" min="50" max="150" /></label>
+          <label><input class="render-input" type="checkbox" /> Render site</label>
+        </div>
+        <textarea class="html-input" placeholder="Custom HTML or note text"></textarea>
+        <div class="card-content"></div>
+      </article>
+    </template>
+
+    <script src="newtab.js"></script>
+  </body>
+</html>

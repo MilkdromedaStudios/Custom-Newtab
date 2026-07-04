@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Ultra Custom Newtab Studio",
+  "description": "A highly customizable start page with multi-site tiles, widgets, custom HTML/CSS, scaling controls, and optional iframe preloading.",
+  "version": "0.1.0",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_title": "Open Ultra Custom Newtab Studio"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "options_page": "newtab.html",
+  "icons": {
+    "16": "icons/icon16.svg",
+    "48": "icons/icon48.svg",
+    "128": "icons/icon128.svg"
+  }
+}
